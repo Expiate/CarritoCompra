@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">CarritoCompra</string>
+    <string name="nuevaListaButtonText">Nueva Lista</string>
+    <string name="newItemcamp1">Nombre de la Lista</string>
+    <string name="descItemcamp2">Descripción de la Lista</string>
+    <string name="aceptarString">Aceptar</string>
+    <string name="cancelarString">Cancelar</string>
+</resources>
