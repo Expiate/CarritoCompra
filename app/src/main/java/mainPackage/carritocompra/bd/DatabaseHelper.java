@@ -2,15 +2,18 @@ package mainPackage.carritocompra.bd;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 
 import java.util.ArrayList;
 
 import mainPackage.carritocompra.ObjetoListaDeCompra;
+import mainPackage.carritocompra.R;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     // Initialize Database Name and Table name
@@ -18,9 +21,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_NAME1 = "listas";
     private static final String TABLE_NAME2 = "productos";
 
+    private Resources res;
+
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null,
                 1);
+        res = context.getResources();
     }
 
     @Override
@@ -59,6 +65,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // Inicializo una instancia en modo escritura de la bd
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         // Creo un ContentValues para insertar datos
+        String[] productos = res.getStringArray(R.array.productosIniciales);
         ContentValues contentValues = new ContentValues();
         contentValues.put("nombre", "Pan");
         contentValues.put("precio", 1.10);

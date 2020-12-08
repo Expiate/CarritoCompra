@@ -26,13 +26,49 @@
             <string>Lechuga</string>
         </item>
         <item>
-            <string>Pan</string>
+            <string>Sardinas</string>
         </item>
         <item>
-            <string>Pan</string>
+            <string>Pechuga de Lomo</string>
         </item>
         <item>
-            <string>Pan</string>
+            <string>Queso</string>
+        </item>
+    </array>
+
+    <array name="preciosIniciales">
+        <item>
+            <double>1.20</double>
+        </item>
+        <item>
+            <double>0.99</double>
+        </item>
+        <item>
+            <double>1.14</double>
+        </item>
+        <item>
+            <double>0.50</double>
+        </item>
+        <item>
+            <double>1.20</double>
+        </item>
+        <item>
+            <double>1.20</double>
+        </item>
+        <item>
+            <double>1.20</double>
+        </item>
+        <item>
+            <double>1.20</double>
+        </item>
+        <item>
+            <double>1.20</double>
+        </item>
+        <item>
+            <double>1.20</double>
+        </item>
+        <item>
+            <double>1.20</double>
         </item>
     </array>
 </resources>

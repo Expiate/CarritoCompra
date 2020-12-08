@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements ComunicationInter
     }
 
     public void actualizarLista() {
-        adaptador = new CustomAdapter(items, this);
+        adaptador = new CustomAdapter(items, this, getSupportFragmentManager());
         layoutManager = new LinearLayoutManager(this);
         viewItems.setLayoutManager(layoutManager);
         viewItems.setAdapter(adaptador);

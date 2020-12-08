@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -16,17 +17,22 @@ import java.util.ArrayList;
 import mainPackage.carritocompra.InteriorListaActivity;
 import mainPackage.carritocompra.ObjetoListaDeCompra;
 import mainPackage.carritocompra.R;
+import mainPackage.carritocompra.utils.BorrarListaDialogListener;
 import mainPackage.carritocompra.utils.ComunicationInterface;
+import mainPackage.carritocompra.utils.dialog.BorrarListaDialog;
 import mainPackage.carritocompra.utils.dialog.NuevaListaDialog;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ListHolder> {
     private ArrayList<ObjetoListaDeCompra> items;
     private Context context;
+    private FragmentManager fragmentManager;
 
-    public CustomAdapter(ArrayList<ObjetoListaDeCompra> itemList, Context context) {
+    public CustomAdapter(ArrayList<ObjetoListaDeCompra> itemList, Context context,
+                         FragmentManager fragmentManager) {
         super();
         this.items = itemList;
         this.context = context;
+        this.fragmentManager = fragmentManager;
     }
 
     @NonNull
@@ -48,7 +54,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ListHolder
         return items.size();
     }
 
-    public class ListHolder extends RecyclerView.ViewHolder {
+    public class ListHolder extends RecyclerView.ViewHolder implements BorrarListaDialogListener {
         private ObjetoListaDeCompra obj;
         private TextView tituloLista;
         private TextView descLista;
@@ -72,8 +78,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ListHolder
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.borrarLista(obj.getId());
-                    listener.recogerListas();
+                    BorrarListaDialog dialog = new BorrarListaDialog(getListHolder());
+                    dialog.show(fragmentManager, "Borrar Lista");
                 }
             });
 
@@ -93,10 +99,18 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ListHolder
             this.descLista.setText(obj.getDesc());
         }
 
+        public void dialogRetornoPositivo() {
+            listener.borrarLista(obj.getId());
+            listener.recogerListas();
+        }
+
         public ObjetoListaDeCompra getObj() {
             return obj;
         }
 
+        public ListHolder getListHolder() {
+            return this;
+        }
     }
 }
 
