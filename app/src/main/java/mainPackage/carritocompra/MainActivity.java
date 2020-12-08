@@ -7,20 +7,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import java.io.IOException;
 import java.util.ArrayList;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
 
 public class MainActivity extends AppCompatActivity implements MyDialog.ExampleDialogListener {
     private ListView viewItems;
     private MyAdapter adaptador;
     private Button nuevaListaButton;
-    private objetosListasDeCompra objeto = null;
-    private ArrayList<objetosListasDeCompra> items = new ArrayList<objetosListasDeCompra>();
+    private ObjetosListasDeCompra objeto = null;
+    private ArrayList<ObjetosListasDeCompra> items = new ArrayList<ObjetosListasDeCompra>();
     private DatabaseHelper databaseHelper;
 
     @Override
@@ -30,7 +25,6 @@ public class MainActivity extends AppCompatActivity implements MyDialog.ExampleD
 
         // Inicializo la instancia de la base de datos
         databaseHelper = new DatabaseHelper(this);
-
 
 
         // Asigno las ID's de la interfaz
@@ -53,25 +47,25 @@ public class MainActivity extends AppCompatActivity implements MyDialog.ExampleD
 
     public void recogerListas() {
         items = databaseHelper.getAllListas();
-        Log.i("dev", items.get(0).getTitulo());
+
         // corregirIds();
         actualizarLista();
     }
 
     public void corregirIds() {
-        for(int i = 0; i < items.size(); i++) {
+        for (int i = 0; i < items.size(); i++) {
             objeto = items.get(i);
 
             boolean flag2 = false;
-            if(objeto.getId() == -1) {
+            if (objeto.getId() == -1) {
                 boolean flag = borrarLista(objeto.getId());
                 objeto.setId(calcularIdLibre());
-                if(flag) {
+                if (flag) {
                     databaseHelper.addLista(objeto);
                     flag2 = flag;
                 }
             }
-            if(flag2) {
+            if (flag2) {
                 items = databaseHelper.getAllListas();
             }
         }
@@ -84,13 +78,13 @@ public class MainActivity extends AppCompatActivity implements MyDialog.ExampleD
 
     public void openDialog() {
         MyDialog dialog = new MyDialog();
-        dialog.show(getSupportFragmentManager(),"Crear Lista");
+        dialog.show(getSupportFragmentManager(), "Crear Lista");
     }
 
     @Override
     public void applyTexts(String titulo, String desc) {
         // Nuevo objeto obtenido del Dialog
-        objeto = new objetosListasDeCompra(titulo, desc, calcularIdLibre());
+        objeto = new ObjetosListasDeCompra(titulo, desc, calcularIdLibre());
         items.add(objeto);
         // Actualizo la DB
         databaseHelper.addLista(objeto);
@@ -100,8 +94,8 @@ public class MainActivity extends AppCompatActivity implements MyDialog.ExampleD
 
     public int calcularIdLibre() {
         int max = 1;
-        for(int i = 0; i < items.size(); i++) {
-            if(max < items.get(i).getId()) {
+        for (int i = 0; i < items.size(); i++) {
+            if (max < items.get(i).getId()) {
                 max = items.get(i).getId();
             }
         }
@@ -109,9 +103,8 @@ public class MainActivity extends AppCompatActivity implements MyDialog.ExampleD
     }
 
 
-
     public void cambiarEstadoNuevaListaButton() {
-        if(sePuedenCrearNuevasListas()) {
+        if (sePuedenCrearNuevasListas()) {
             nuevaListaButton.setEnabled(true);
         } else {
             nuevaListaButton.setEnabled(false);
@@ -119,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements MyDialog.ExampleD
     }
 
     public boolean sePuedenCrearNuevasListas() {
-        if(items.size() >= 10) {
+        if (items.size() >= 10) {
             return false;
         } else {
             return true;

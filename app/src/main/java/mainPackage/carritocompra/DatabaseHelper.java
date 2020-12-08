@@ -34,7 +34,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean addLista(objetosListasDeCompra objeto) {
+    public boolean addLista(ObjetosListasDeCompra objeto) {
         // Inicializo una instancia en modo escritura de la bd
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         // Creo un ContentValues para insertar datos
@@ -47,18 +47,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    public ArrayList<objetosListasDeCompra> getAllListas() {
+    public ArrayList<ObjetosListasDeCompra> getAllListas() {
         // Inicializo una instancia en modo lectura de la bd
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        ArrayList<objetosListasDeCompra> listas = new ArrayList<objetosListasDeCompra>();
+        ArrayList<ObjetosListasDeCompra> listas = new ArrayList<ObjetosListasDeCompra>();
         // Creo un cursos para recorrer la consulta
-        Cursor cursor = sqLiteDatabase.rawQuery("select Titulolista, descLista FROM "
+        Cursor cursor = sqLiteDatabase.rawQuery("select id, Titulolista, descLista FROM "
                         + TABLE_NAME, null);
         cursor.moveToFirst();
         while(!cursor.isAfterLast()) {
             String tituloLista = cursor.getString(cursor.getColumnIndex("TituloLista"));
             String descLista = cursor.getString(cursor.getColumnIndex("descLista"));
-            listas.add(new objetosListasDeCompra(tituloLista, descLista));
+            int id = cursor.getInt(cursor.getColumnIndex("id"));
+            listas.add(new ObjetosListasDeCompra(tituloLista, descLista, id));
 
             cursor.moveToNext();
         }
