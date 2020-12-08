@@ -12,11 +12,15 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class MyAdapter extends BaseAdapter {
-    private ArrayList<objetosListasDeCompra> items;
+    private ArrayList<ObjetosListasDeCompra> items;
     private Context context;
     private MyDialog.ExampleDialogListener listener;
+    private TextView tituloTexto;
+    private TextView descText;
+    private Button editButton;
 
-    public MyAdapter(ArrayList<objetosListasDeCompra> items, Context context) {
+
+    public MyAdapter(ArrayList<ObjetosListasDeCompra> items, Context context) {
         this.items = items;
         this.context = context;
 
@@ -45,12 +49,12 @@ public class MyAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        objetosListasDeCompra ldc = (objetosListasDeCompra) getItem(position);
+        ObjetosListasDeCompra ldc = (ObjetosListasDeCompra) getItem(position);
 
         convertView = LayoutInflater.from(context).inflate(R.layout.item, null);
-        TextView tituloTexto = convertView.findViewById(R.id.tituloTextoVerad);
-        TextView descText = convertView.findViewById(R.id.descText);
-        Button editButton = convertView.findViewById(R.id.editButton);
+        tituloTexto = convertView.findViewById(R.id.tituloTextoVerad);
+        descText = convertView.findViewById(R.id.descText);
+        editButton = convertView.findViewById(R.id.editButton);
 
         tituloTexto.setText(ldc.getTitulo());
         descText.setText(ldc.getDesc());
@@ -58,9 +62,11 @@ public class MyAdapter extends BaseAdapter {
 
             @Override
             public void onClick(View v) {
-                Log.i("dev", String.valueOf(v.getY()));
-                //listener.borrarLista();
-                //listener.recogerListas();
+                Log.i("dev", String.valueOf(tituloTexto.getText()));
+                String sda = tituloTexto.getText().toString();
+                //int i = ldc.getId();
+                //listener.borrarLista(ldc.getId());
+                listener.recogerListas();
             }
         });
         return convertView;

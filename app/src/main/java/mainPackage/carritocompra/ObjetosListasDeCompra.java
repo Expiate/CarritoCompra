@@ -2,19 +2,19 @@ package mainPackage.carritocompra;
 
 import android.widget.Button;
 
-public class objetosListasDeCompra {
+public class ObjetosListasDeCompra {
     private int id = -1;
     private String titulo;
     private String desc;
     private Button editButton;
 
-    public objetosListasDeCompra(String titulo, String desc, int id) {
+    public ObjetosListasDeCompra(String titulo, String desc, int id) {
         this.id = id;
         this.titulo = titulo;
         this.desc = desc;
     }
 
-    public objetosListasDeCompra(String titulo, String desc) {
+    public ObjetosListasDeCompra(String titulo, String desc) {
         this.titulo = titulo;
         this.desc = desc;
     }
@@ -41,5 +41,15 @@ public class objetosListasDeCompra {
 
     public String getDesc() {
         return desc;
+    }
+
+    @Override
+    public String toString() {
+        return "ObjetosListasDeCompra{" +
+                "id=" + id +
+                ", titulo='" + titulo + '\'' +
+                ", desc='" + desc + '\'' +
+                ", editButton=" + editButton +
+                '}';
     }
 }
