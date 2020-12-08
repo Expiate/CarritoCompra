@@ -5,4 +5,5 @@
     <string name="descItemcamp2">Descripción de la Lista</string>
     <string name="aceptarString">Aceptar</string>
     <string name="cancelarString">Cancelar</string>
+    <string name="edit">Edit</string>
 </resources>

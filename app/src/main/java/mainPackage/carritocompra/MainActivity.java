@@ -3,9 +3,11 @@ package mainPackage.carritocompra;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,17 +28,18 @@ public class MainActivity extends AppCompatActivity implements MyDialog.ExampleD
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Initialize DatabaseHelper
+        // Inicializo la instancia de la base de datos
         databaseHelper = new DatabaseHelper(this);
 
-        // Add Database Values to ArrayList
-        items = databaseHelper.getAllListas();
 
-        // Assign Variable
+
+        // Asigno las ID's de la interfaz
         viewItems = findViewById(R.id.list1);
-        nuevaListaButton = findViewById(R.id.newListaButton);
 
-        // Create List Button
+        nuevaListaButton = findViewById(R.id.newListaButton);
+        cambiarEstadoNuevaListaButton();
+
+        // Listeners
         nuevaListaButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,30 +47,87 @@ public class MainActivity extends AppCompatActivity implements MyDialog.ExampleD
             }
         });
 
-        // Inicializo la vista de las Listas
+        // Recogo los datos de las listas de la bd
+        recogerListas();
+    }
+
+    public void recogerListas() {
+        items = databaseHelper.getAllListas();
+        Log.i("dev", items.get(0).getTitulo());
+        // corregirIds();
         actualizarLista();
     }
 
-    private void actualizarLista() {
+    public void corregirIds() {
+        for(int i = 0; i < items.size(); i++) {
+            objeto = items.get(i);
+
+            boolean flag2 = false;
+            if(objeto.getId() == -1) {
+                boolean flag = borrarLista(objeto.getId());
+                objeto.setId(calcularIdLibre());
+                if(flag) {
+                    databaseHelper.addLista(objeto);
+                    flag2 = flag;
+                }
+            }
+            if(flag2) {
+                items = databaseHelper.getAllListas();
+            }
+        }
+    }
+
+    public void actualizarLista() {
         adaptador = new MyAdapter(items, this);
         viewItems.setAdapter(adaptador);
     }
 
-    private void openDialog() {
+    public void openDialog() {
         MyDialog dialog = new MyDialog();
         dialog.show(getSupportFragmentManager(),"Crear Lista");
     }
 
     @Override
     public void applyTexts(String titulo, String desc) {
-        // Get Item from Dialog
-        objeto = new objetosListasDeCompra(titulo, desc);
+        // Nuevo objeto obtenido del Dialog
+        objeto = new objetosListasDeCompra(titulo, desc, calcularIdLibre());
         items.add(objeto);
-        // Update Database
+        // Actualizo la DB
         databaseHelper.addLista(objeto);
-        // Refresh List
+        // Refresco el adaptador
         actualizarLista();
     }
 
+    public int calcularIdLibre() {
+        int max = 1;
+        for(int i = 0; i < items.size(); i++) {
+            if(max < items.get(i).getId()) {
+                max = items.get(i).getId();
+            }
+        }
+        return max + 1;
+    }
+
+
+
+    public void cambiarEstadoNuevaListaButton() {
+        if(sePuedenCrearNuevasListas()) {
+            nuevaListaButton.setEnabled(true);
+        } else {
+            nuevaListaButton.setEnabled(false);
+        }
+    }
+
+    public boolean sePuedenCrearNuevasListas() {
+        if(items.size() >= 10) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean borrarLista(int id) {
+        return databaseHelper.eliminarLista(id);
+    }
 
 }

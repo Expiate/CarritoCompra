@@ -1,12 +1,38 @@
 package mainPackage.carritocompra;
 
+import android.widget.Button;
+
 public class objetosListasDeCompra {
+    private int id = -1;
     private String titulo;
     private String desc;
+    private Button editButton;
+
+    public objetosListasDeCompra(String titulo, String desc, int id) {
+        this.id = id;
+        this.titulo = titulo;
+        this.desc = desc;
+    }
 
     public objetosListasDeCompra(String titulo, String desc) {
         this.titulo = titulo;
         this.desc = desc;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public void setButton(Button button) {
+        this.editButton = button;
+    }
+
+    public Button getButton() {
+        return this.editButton;
     }
 
     public String getTitulo() {

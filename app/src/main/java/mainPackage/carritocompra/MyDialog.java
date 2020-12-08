@@ -49,8 +49,8 @@ public class MyDialog extends AppCompatDialogFragment {
                     }
                 });
 
-        nombreLista = view.findViewById(R.id.username);
-        descLista = view.findViewById(R.id.password);
+        nombreLista = view.findViewById(R.id.listName);
+        descLista = view.findViewById(R.id.listDesc);
         return builder.create();
     }
 
@@ -68,5 +68,7 @@ public class MyDialog extends AppCompatDialogFragment {
 
     public interface ExampleDialogListener {
         void applyTexts(String titulo, String desc);
+        boolean borrarLista(int id);
+        void recogerListas();
     }
 }

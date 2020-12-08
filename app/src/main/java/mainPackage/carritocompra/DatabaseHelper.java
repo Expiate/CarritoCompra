@@ -21,7 +21,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // Create Table
+        // Creo las tablas
         String createTable = "create table " + TABLE_NAME +
                 "(id INTEGER PRIMARY KEY, TituloLista TEXT, descLista TEXT)";
         db.execSQL(createTable);
@@ -29,28 +29,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Drop older table if exists
+        // Dropea la anterior tabla si existe
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
 
     public boolean addLista(objetosListasDeCompra objeto) {
-        // Get WriteAble Database
+        // Inicializo una instancia en modo escritura de la bd
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        // Create Content Values
+        // Creo un ContentValues para insertar datos
         ContentValues contentValues = new ContentValues();
         contentValues.put("TituloLista", objeto.getTitulo());
         contentValues.put("descLista", objeto.getDesc());
-        // Add Values into Database
+        // Inserto los datos en la bd
         sqLiteDatabase.insert(TABLE_NAME, null, contentValues);
+
         return true;
     }
 
     public ArrayList<objetosListasDeCompra> getAllListas() {
-        // Get ReadAble Database
+        // Inicializo una instancia en modo lectura de la bd
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         ArrayList<objetosListasDeCompra> listas = new ArrayList<objetosListasDeCompra>();
-        // Create Cursor to Select all Values
+        // Creo un cursos para recorrer la consulta
         Cursor cursor = sqLiteDatabase.rawQuery("select Titulolista, descLista FROM "
                         + TABLE_NAME, null);
         cursor.moveToFirst();
@@ -61,6 +62,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
             cursor.moveToNext();
         }
+
         return listas;
+    }
+
+    public boolean eliminarLista(int id) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        int i = sqLiteDatabase.delete(TABLE_NAME, "id" + "=?",
+                new String[]{String.valueOf(id)});
+
+        if(i > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
