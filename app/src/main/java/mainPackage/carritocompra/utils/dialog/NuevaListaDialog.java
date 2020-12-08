@@ -1,4 +1,4 @@
-package mainPackage.carritocompra;
+package mainPackage.carritocompra.utils.dialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -14,10 +14,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.fragment.app.FragmentManager;
 
-public class MyDialog extends AppCompatDialogFragment {
+import mainPackage.carritocompra.R;
+import mainPackage.carritocompra.utils.ComunicationInterface;
+
+public class NuevaListaDialog extends AppCompatDialogFragment {
     private EditText nombreLista;
     private EditText descLista;
-    private ExampleDialogListener listener;
+    private ComunicationInterface listener;
 
     @Override
     public void show(@NonNull FragmentManager manager, @Nullable String tag) {
@@ -30,7 +33,7 @@ public class MyDialog extends AppCompatDialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.newitemdialog, null);
+        View view = inflater.inflate(R.layout.new_item_dialog, null);
 
         builder.setView(view)
                 .setTitle("Crear nueva Lista")
@@ -59,16 +62,11 @@ public class MyDialog extends AppCompatDialogFragment {
         super.onAttach(context);
 
         try {
-            listener = (ExampleDialogListener) context;
+            listener = (ComunicationInterface) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + "must implement Example" +
-                    "DialogListener");
+                    "ComunicationInterface");
         }
     }
 
-    public interface ExampleDialogListener {
-        void applyTexts(String titulo, String desc);
-        boolean borrarLista(int id);
-        void recogerListas();
-    }
 }

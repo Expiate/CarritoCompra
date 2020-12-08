@@ -1,6 +1,7 @@
-package mainPackage.carritocompra;
+package mainPackage.carritocompra.utils.rc;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +13,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import mainPackage.carritocompra.InteriorListaActivity;
+import mainPackage.carritocompra.ObjetoListaDeCompra;
+import mainPackage.carritocompra.R;
+import mainPackage.carritocompra.utils.ComunicationInterface;
+import mainPackage.carritocompra.utils.dialog.NuevaListaDialog;
+
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ListHolder> {
-    private ArrayList<ObjetosListasDeCompra> items;
+    private ArrayList<ObjetoListaDeCompra> items;
     private Context context;
 
-    public CustomAdapter(ArrayList<ObjetosListasDeCompra> itemList, Context context) {
+    public CustomAdapter(ArrayList<ObjetoListaDeCompra> itemList, Context context) {
+        super();
         this.items = itemList;
         this.context = context;
     }
@@ -25,7 +33,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ListHolder
     @Override
     public CustomAdapter.ListHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.item, parent, false);
+        View view = layoutInflater.inflate(R.layout.card_view_item, parent, false);
 
         return new ListHolder(view);
     }
@@ -41,11 +49,11 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ListHolder
     }
 
     public class ListHolder extends RecyclerView.ViewHolder {
-        private ObjetosListasDeCompra obj;
+        private ObjetoListaDeCompra obj;
         private TextView tituloLista;
         private TextView descLista;
         private Button button;
-        private MyDialog.ExampleDialogListener listener;
+        private ComunicationInterface listener;
 
         public ListHolder(@NonNull View itemView) {
             super(itemView);
@@ -55,27 +63,37 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ListHolder
             button = itemView.findViewById(R.id.borrarButton);
 
             try {
-                listener = (MyDialog.ExampleDialogListener) context;
+                listener = (ComunicationInterface) context;
             } catch (ClassCastException e) {
                 throw new ClassCastException(context.toString() + "must implement Example" +
-                        "DialogListener");
+                        "ComunicationInterface");
             }
 
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     listener.borrarLista(obj.getId());
+                    listener.recogerListas();
+                }
+            });
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intentToInteriorListaActivity = new Intent(context,
+                            InteriorListaActivity.class);
+                    context.startActivity(intentToInteriorListaActivity);
                 }
             });
         }
 
-        public void setObj(ObjetosListasDeCompra obj) {
+        public void setObj(ObjetoListaDeCompra obj) {
             this.obj = obj;
             this.tituloLista.setText(obj.getTitulo());
             this.descLista.setText(obj.getDesc());
         }
 
-        public ObjetosListasDeCompra getObj() {
+        public ObjetoListaDeCompra getObj() {
             return obj;
         }
 

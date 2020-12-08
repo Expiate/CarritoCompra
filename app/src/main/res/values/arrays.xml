@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="productosIniciales">
+        <item>
+            <string>Pan</string>
+        </item>
+        <item>
+            <string>Agua</string>
+        </item>
+        <item>
+            <string>Aceite</string>
+        </item>
+        <item>
+            <string>Arina</string>
+        </item>
+        <item>
+            <string>Sal</string>
+        </item>
+        <item>
+            <string>Tomate</string>
+        </item>
+        <item>
+            <string>Azúcar</string>
+        </item>
+        <item>
+            <string>Lechuga</string>
+        </item>
+        <item>
+            <string>Pan</string>
+        </item>
+        <item>
+            <string>Pan</string>
+        </item>
+        <item>
+            <string>Pan</string>
+        </item>
+    </array>
+</resources>
