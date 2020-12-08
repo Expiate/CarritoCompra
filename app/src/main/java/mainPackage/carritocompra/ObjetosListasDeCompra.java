@@ -14,11 +14,6 @@ public class ObjetosListasDeCompra {
         this.desc = desc;
     }
 
-    public ObjetosListasDeCompra(String titulo, String desc) {
-        this.titulo = titulo;
-        this.desc = desc;
-    }
-
     public void setId(int id) {
         this.id = id;
     }

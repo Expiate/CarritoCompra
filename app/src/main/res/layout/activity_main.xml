@@ -21,7 +21,7 @@
         app:layout_constraintTop_toBottomOf="@+id/list1"
         app:layout_constraintVertical_bias="0.878" />
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list1"
         android:layout_width="390dp"
         android:layout_height="542dp"

@@ -54,17 +54,19 @@ public class MyAdapter extends BaseAdapter {
         convertView = LayoutInflater.from(context).inflate(R.layout.item, null);
         tituloTexto = convertView.findViewById(R.id.tituloTextoVerad);
         descText = convertView.findViewById(R.id.descText);
-        editButton = convertView.findViewById(R.id.editButton);
+        editButton = convertView.findViewById(R.id.borrarButton);
 
         tituloTexto.setText(ldc.getTitulo());
         descText.setText(ldc.getDesc());
+
+
         editButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 Log.i("dev", String.valueOf(tituloTexto.getText()));
                 String sda = tituloTexto.getText().toString();
-                //int i = ldc.getId();
+                // int i = ldc.getId();
                 //listener.borrarLista(ldc.getId());
                 listener.recogerListas();
             }

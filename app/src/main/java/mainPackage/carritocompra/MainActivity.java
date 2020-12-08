@@ -1,6 +1,7 @@
 package mainPackage.carritocompra;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -11,8 +12,8 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements MyDialog.ExampleDialogListener {
-    private ListView viewItems;
-    private MyAdapter adaptador;
+    private RecyclerView viewItems;
+    private CustomAdapter adaptador;
     private Button nuevaListaButton;
     private ObjetosListasDeCompra objeto = null;
     private ArrayList<ObjetosListasDeCompra> items = new ArrayList<ObjetosListasDeCompra>();
@@ -25,7 +26,6 @@ public class MainActivity extends AppCompatActivity implements MyDialog.ExampleD
 
         // Inicializo la instancia de la base de datos
         databaseHelper = new DatabaseHelper(this);
-
 
         // Asigno las ID's de la interfaz
         viewItems = findViewById(R.id.list1);
@@ -56,23 +56,23 @@ public class MainActivity extends AppCompatActivity implements MyDialog.ExampleD
         for (int i = 0; i < items.size(); i++) {
             objeto = items.get(i);
 
-            boolean flag2 = false;
+            boolean seHaCambiadoSuId = false;
             if (objeto.getId() == -1) {
                 boolean flag = borrarLista(objeto.getId());
                 objeto.setId(calcularIdLibre());
                 if (flag) {
                     databaseHelper.addLista(objeto);
-                    flag2 = flag;
+                    seHaCambiadoSuId = flag;
                 }
             }
-            if (flag2) {
+            if (seHaCambiadoSuId) {
                 items = databaseHelper.getAllListas();
             }
         }
     }
 
     public void actualizarLista() {
-        adaptador = new MyAdapter(items, this);
+        adaptador = new CustomAdapter(items, this);
         viewItems.setAdapter(adaptador);
     }
 
