@@ -10,17 +10,23 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.fragment.app.FragmentManager;
 
+import java.util.ArrayList;
+
+import mainPackage.carritocompra.utils.objetos.Producto;
 import mainPackage.carritocompra.R;
 import mainPackage.carritocompra.utils.BorrarListaDialogListener;
-import mainPackage.carritocompra.utils.rc.ListAdapter;
+import mainPackage.carritocompra.utils.rc.ListProductAdapter;
 
-public class BorrarListaDialog extends AppCompatDialogFragment {
+public class BorrarProductoDialog extends AppCompatDialogFragment {
     private BorrarListaDialogListener listener;
-    private ListAdapter.ListHolder listHolder;
+    private ListProductAdapter.ProductHolder productHolder;
+    private ArrayList<Producto> productos;
 
-    public BorrarListaDialog(ListAdapter.ListHolder listHolder) {
+    public BorrarProductoDialog(ListProductAdapter.ProductHolder productHolder,
+                                ArrayList<Producto> productos) {
         super();
-        this.listHolder = listHolder;
+        this.productHolder = productHolder;
+        this.productos = productos;
     }
 
     @Override
@@ -34,9 +40,9 @@ public class BorrarListaDialog extends AppCompatDialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         try {
-            listener = (BorrarListaDialogListener) listHolder;
+            listener = (BorrarListaDialogListener) productHolder;
         } catch (ClassCastException e) {
-            throw new ClassCastException(listHolder.toString() + "must implement Example" +
+            throw new ClassCastException(productHolder.toString() + "must implement Example" +
                     "BorrarListaDialogListener");
         }
 
@@ -59,4 +65,3 @@ public class BorrarListaDialog extends AppCompatDialogFragment {
     }
 
 }
-

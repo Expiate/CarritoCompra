@@ -12,17 +12,18 @@ import java.util.ArrayList;
 
 import mainPackage.carritocompra.bd.DatabaseHelper;
 import mainPackage.carritocompra.utils.ComunicationInterface;
-import mainPackage.carritocompra.utils.rc.CustomAdapter;
+import mainPackage.carritocompra.utils.objetos.Lista;
+import mainPackage.carritocompra.utils.rc.ListAdapter;
 import mainPackage.carritocompra.utils.dialog.NuevaListaDialog;
 
 public class MainActivity extends AppCompatActivity implements ComunicationInterface {
     private RecyclerView viewItems;
-    private CustomAdapter adaptador;
+    private ListAdapter adaptador;
     private RecyclerView.LayoutManager layoutManager;
 
     private Button nuevaListaButton;
-    private ObjetoListaDeCompra objeto = null;
-    private ArrayList<ObjetoListaDeCompra> items = new ArrayList<ObjetoListaDeCompra>();
+    private Lista objeto = null;
+    private ArrayList<Lista> items = new ArrayList<Lista>();
 
     private DatabaseHelper databaseHelper;
 
@@ -35,9 +36,9 @@ public class MainActivity extends AppCompatActivity implements ComunicationInter
         databaseHelper = new DatabaseHelper(this);
 
         // Asigno las ID's de la interfaz
-        viewItems = findViewById(R.id.list1);
+        viewItems = findViewById(R.id.list3);
         viewItems.setHasFixedSize(true);
-        nuevaListaButton = findViewById(R.id.newListaButton);
+        nuevaListaButton = findViewById(R.id.seleccionarProductosButton);
         cambiarEstadoNuevaListaButton();
 
         // Listeners
@@ -79,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements ComunicationInter
     }
 
     public void actualizarLista() {
-        adaptador = new CustomAdapter(items, this, getSupportFragmentManager());
+        adaptador = new ListAdapter(items, this, getSupportFragmentManager());
         layoutManager = new LinearLayoutManager(this);
         viewItems.setLayoutManager(layoutManager);
         viewItems.setAdapter(adaptador);
@@ -93,10 +94,12 @@ public class MainActivity extends AppCompatActivity implements ComunicationInter
     @Override
     public void applyTexts(String titulo, String desc) {
         // Nuevo objeto obtenido del Dialog
-        objeto = new ObjetoListaDeCompra(titulo, desc, calcularIdLibre());
+        objeto = new Lista(titulo, desc, calcularIdLibre(), "NULL");
         items.add(objeto);
         // Actualizo la DB
         databaseHelper.addLista(objeto);
+        // ELIMINAR ESTO AL TERMINAR
+        databaseHelper.addProducto();
         // Refresco el adaptador
         actualizarLista();
     }

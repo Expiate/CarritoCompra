@@ -1,11 +1,13 @@
-package mainPackage.carritocompra;
+package mainPackage.carritocompra.utils.objetos;
 
 public class Producto {
+    private int id;
     private String nombre;
     private double precio;
     private String atributo;
 
-    public Producto(String nombre, double precio, String atributo) {
+    public Producto(int id, String nombre, double precio, String atributo) {
+        this.id = id;
         this.nombre = nombre;
         this.precio = precio;
         this.atributo = atributo;
@@ -33,5 +35,9 @@ public class Producto {
 
     public String getAtributo() {
         return atributo;
+    }
+
+    public int getId() {
+        return id;
     }
 }

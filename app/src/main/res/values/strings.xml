@@ -7,4 +7,9 @@
     <string name="cancelarString">Cancelar</string>
     <string name="borrarString">Borrar</string>
     <string name="borrarListaString">¿Estas seguro de que quieres borrar esta lista?</string>
+    <string name="seleccionarProductosString">Seleccionar Productos</string>
+    <string name="añadirProductosNuevosButton" />
+    <string name="productosString">Productos</string>
+    <string name="añadirProductosString">Añadir Productos</string>
+    <string name="borrarProductoString">¿Estas seguro de que quieres borraar este producto?</string>
 </resources>

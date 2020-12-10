@@ -38,37 +38,73 @@
 
     <array name="preciosIniciales">
         <item>
-            <double>1.20</double>
+            <string>1.20</string>
         </item>
         <item>
-            <double>0.99</double>
+            <string>0.99</string>
         </item>
         <item>
-            <double>1.14</double>
+            <string>1.14</string>
         </item>
         <item>
-            <double>0.50</double>
+            <string>0.50</string>
         </item>
         <item>
-            <double>1.20</double>
+            <string>1.04</string>
         </item>
         <item>
-            <double>1.20</double>
+            <string>0.20</string>
         </item>
         <item>
-            <double>1.20</double>
+            <string>2.30</string>
         </item>
         <item>
-            <double>1.20</double>
+            <string>0.11</string>
         </item>
         <item>
-            <double>1.20</double>
+            <string>3.55</string>
         </item>
         <item>
-            <double>1.20</double>
+            <string>0.80</string>
         </item>
         <item>
-            <double>1.20</double>
+            <string>1.99</string>
+        </item>
+    </array>
+
+    <array name="atributosIniciales">
+        <item>
+            <string>Unidad</string>
+        </item>
+        <item>
+            <string>Litro</string>
+        </item>
+        <item>
+            <string>Litro</string>
+        </item>
+        <item>
+            <string>Kg</string>
+        </item>
+        <item>
+            <string>Kg</string>
+        </item>
+        <item>
+            <string>Unidad</string>
+        </item>
+        <item>
+            <string>Kg</string>
+        </item>
+        <item>
+            <string>Unidad</string>
+        </item>
+        <item>
+            <string>Kg</string>
+        </item>
+        <item>
+            <string>Kg</string>
+        </item>
+        <item>
+            <string>Unidad</string>
         </item>
     </array>
 </resources>
